@@ -1,0 +1,207 @@
+# Airport Management System 
+
+create database Airport_Management;
+use Airport_Management;
+
+CREATE TABLE CITY
+(CNAME VARCHAR (15) NOT NULL,
+STATE VARCHAR(15), 
+COUNTRY VARCHAR(30),
+PRIMARY KEY(CNAME));
+
+
+# Insering values of Table: CITY
+INSERT INTO CITY (CNAME, STATE, COUNTRY) VALUES('Louisville','Kentucky','United States');
+INSERT INTO CITY (CNAME, STATE, COUNTRY) VALUES ('Chandigarh','Chandigarh','India');
+INSERT INTO CITY (CNAME, STATE, COUNTRY) VALUES ('Fort Worth','Texas','United States');
+INSERT INTO CITY (CNAME, STATE, COUNTRY) VALUES('Delhi','Delhi','India');
+INSERT INTO CITY (CNAME, STATE, COUNTRY) VALUES('Mumbai','Maharashtra','India');
+INSERT INTO CITY (CNAME, STATE, COUNTRY) VALUES('San Francisco', 'California', 'United States');
+INSERT INTO CITY (CNAME, STATE, COUNTRY) VALUES('Frankfurt','Hesse','Germany');
+INSERT INTO CITY (CNAME, STATE, COUNTRY) VALUES('Houston','Texas','United States');
+INSERT INTO CITY (CNAME, STATE, COUNTRY) VALUES('New York City','New York','United States');
+INSERT INTO CITY (CNAME, STATE, COUNTRY) VALUES('Tampa', 'Florida', 'United States');
+
+CREATE TABLE AIRPORT
+(AP_NAME VARCHAR(100) NOT NULL,
+STATE VARCHAR(15), 
+COUNTRY VARCHAR(30),
+CNAME VARCHAR(15),
+PRIMARY KEY(AP_NAME),
+FOREIGN KEY(CNAME) REFERENCES CITY(CNAME) ON DELETE CASCADE);
+
+# Insering values for Table: AIRPORT
+
+INSERT INTO AIRPORT (AP_NAME, STATE, COUNTRY, CNAME) VALUES('Louisville International Airport','Kentucky','United States','Louisville');
+INSERT INTO AIRPORT (AP_NAME, STATE, COUNTRY, CNAME) VALUES('Chandigarh International Airport','Chandigarh','India','Chandigarh');
+INSERT INTO AIRPORT (AP_NAME, STATE, COUNTRY, CNAME) VALUES('Dallas/Fort Worth International Airport','Texas','United States','Fort Worth');
+INSERT INTO AIRPORT (AP_NAME, STATE, COUNTRY, CNAME) VALUES('Indira GandhiInternational Airport','Delhi','India','Delhi');
+INSERT INTO AIRPORT (AP_NAME, STATE, COUNTRY, CNAME) VALUES('Chhatrapati Shivaji International Airport','Maharashtra','India','Mumbai');
+INSERT INTO AIRPORT (AP_NAME, STATE, COUNTRY, CNAME) VALUES('San Francisco International Airport','California', 'United States','San Francisco');
+INSERT INTO AIRPORT (AP_NAME, STATE, COUNTRY, CNAME) VALUES('Frankfurt Airport','Hesse','Germany','Frankfurt');
+INSERT INTO AIRPORT (AP_NAME, STATE, COUNTRY, CNAME) VALUES('George Bush Intercontinental Airport','Texas','United States','Houston');
+INSERT INTO AIRPORT (AP_NAME, STATE, COUNTRY, CNAME) VALUES('John F. Kennedy International Airport','New York','United States','New York City');
+INSERT INTO AIRPORT (AP_NAME, STATE, COUNTRY, CNAME) VALUES('Tampa International Airport','Florida', 'United States','Tampa');
+
+
+CREATE TABLE AIRLINE
+(AIRLINEID VARCHAR(3) NOT NULL,
+AL_NAME VARCHAR(50),
+THREE_DIGIT_CODE VARCHAR(3),
+PRIMARY KEY(AIRLINEID));
+
+# Insering values for Table: AIRLINE 
+
+INSERT INTO AIRLINE (AIRLINEID, AL_NAME, THREE_DIGIT_CODE) VALUES('AA','American Airlines','001');
+INSERT INTO AIRLINE (AIRLINEID, AL_NAME, THREE_DIGIT_CODE) VALUES('AI','Air India Limited','098');
+INSERT INTO AIRLINE (AIRLINEID, AL_NAME, THREE_DIGIT_CODE) VALUES('LH','Lufthansa', '220');
+INSERT INTO AIRLINE (AIRLINEID, AL_NAME, THREE_DIGIT_CODE) VALUES('BA','British Airways','125');
+INSERT INTO AIRLINE (AIRLINEID, AL_NAME, THREE_DIGIT_CODE) VALUES('QR','Qatar Airways','157');
+INSERT INTO AIRLINE (AIRLINEID, AL_NAME, THREE_DIGIT_CODE) VALUES('9W','Jet Airways','589');
+INSERT INTO AIRLINE (AIRLINEID, AL_NAME, THREE_DIGIT_CODE) VALUES('EK','Emirates','176');
+INSERT INTO AIRLINE (AIRLINEID, AL_NAME, THREE_DIGIT_CODE) VALUES('EY','Ethiad Airways','607');
+
+
+
+CREATE TABLE FLIGHT
+(FLIGHT_CODE VARCHAR(10) NOT NULL,
+SOURCE VARCHAR(3),
+DESTINATION VARCHAR(3),
+ARRIVAL VARCHAR(10),
+DEPARTURE VARCHAR(10),
+STATUS VARCHAR(10),
+DURATION VARCHAR(30),
+FLIGHTTYPE VARCHAR(10),
+LAYOVER_TIME VARCHAR(30),
+NO_OF_STOPS INT,
+AIRLINEID VARCHAR(3),
+PRIMARY KEY(FLIGHT_CODE),
+FOREIGN KEY(AIRLINEID) REFERENCES AIRLINE(AIRLINEID) ON DELETE CASCADE);
+
+
+INSERT INTO FLIGHT(FLIGHT_CODE, SOURCE, DESTINATION, ARRIVAL, DEPARTURE, STATUS, DURATION, FLIGHTTYPE, LAYOVER_TIME, NO_OF_STOPS, AIRLINEID)
+VALUES('AI2014','BOM','DFW','02:10','03:15','On-time','24hr','Connecting',3,1,'AI');
+INSERT INTO FLIGHT(FLIGHT_CODE, SOURCE, DESTINATION, ARRIVAL, DEPARTURE, STATUS, DURATION, FLIGHTTYPE, LAYOVER_TIME, NO_OF_STOPS, AIRLINEID)
+VALUES('QR2305','BOM','DFW','13:00','13:55','Delayed','21hr','Non-stop',0,0,'QR');
+INSERT INTO FLIGHT(FLIGHT_CODE, SOURCE, DESTINATION, ARRIVAL, DEPARTURE, STATUS, DURATION, FLIGHTTYPE, LAYOVER_TIME, NO_OF_STOPS, AIRLINEID)
+VALUES('EY1234','JFK','TPA','19:20','20:05','On-time','16hrs','Connecting',5,2,'EY');
+INSERT INTO FLIGHT(FLIGHT_CODE, SOURCE, DESTINATION, ARRIVAL, DEPARTURE, STATUS, DURATION, FLIGHTTYPE, LAYOVER_TIME, NO_OF_STOPS, AIRLINEID)
+VALUES('LH9876','JFK','BOM','05:50','06:35','On-time','18hrs','Non-stop',0,0,'LH');
+INSERT INTO FLIGHT(FLIGHT_CODE, SOURCE, DESTINATION, ARRIVAL, DEPARTURE, STATUS, DURATION, FLIGHTTYPE, LAYOVER_TIME, NO_OF_STOPS, AIRLINEID)
+VALUES('BA1689','FRA','DEL','10:20','10:55','On-time','14hrs','Non-stop',0,0,'BA');
+INSERT INTO FLIGHT(FLIGHT_CODE, SOURCE, DESTINATION, ARRIVAL, DEPARTURE, STATUS, DURATION, FLIGHTTYPE, LAYOVER_TIME, NO_OF_STOPS, AIRLINEID)
+VALUES('AA4367','SFO','FRA','18:10','18:55','On-time','21hrs','Non-stop',0,0,'AA');
+INSERT INTO FLIGHT(FLIGHT_CODE, SOURCE, DESTINATION, ARRIVAL, DEPARTURE, STATUS, DURATION, FLIGHTTYPE, LAYOVER_TIME, NO_OF_STOPS, AIRLINEID)
+VALUES('QR1902','IXC','IAH','22:00','22:50','Delayed','28hrs','Non-stop',5,1,'QR');
+INSERT INTO FLIGHT(FLIGHT_CODE, SOURCE, DESTINATION, ARRIVAL, DEPARTURE, STATUS, DURATION, FLIGHTTYPE, LAYOVER_TIME, NO_OF_STOPS, AIRLINEID)
+VALUES('BA3056','BOM','DFW','02:15','02:55','On-time','29hrs','Connecting',3,1,'BA');
+INSERT INTO FLIGHT(FLIGHT_CODE, SOURCE, DESTINATION, ARRIVAL, DEPARTURE, STATUS, DURATION, FLIGHTTYPE, LAYOVER_TIME, NO_OF_STOPS, AIRLINEID)
+VALUES('EK3456','BOM','SFO','18:50','19:40','On-time','30hrs','Non-stop',0,0,'EK');
+INSERT INTO FLIGHT(FLIGHT_CODE, SOURCE, DESTINATION, ARRIVAL, DEPARTURE, STATUS, DURATION, FLIGHTTYPE, LAYOVER_TIME, NO_OF_STOPS, AIRLINEID)
+VALUES('9W2334','IAH','DEL','23:00','13:45','On-time','23hrs','Direct',0,0,'9W');
+INSERT INTO FLIGHT(FLIGHT_CODE, SOURCE, DESTINATION, ARRIVAL, DEPARTURE, STATUS, DURATION, FLIGHTTYPE, LAYOVER_TIME, NO_OF_STOPS, AIRLINEID)
+VALUES('AI127','BOM','DFW','02:10','03:15','Delayed','24hr','Connecting',3,1,'AI');
+
+CREATE TABLE PASSENGER
+(PID INT NOT NULL,
+passanger_name varchar(30),
+FLIGHT_CODE VARCHAR(10),
+PRIMARY KEY(PID),
+FOREIGN KEY(FLIGHT_CODE) REFERENCES FLIGHT(FLIGHT_CODE) ON DELETE CASCADE);
+
+# INSERTING VALUES INTO TABLE: PASSENGER3
+
+INSERT INTO PASSENGER(PID,passanger_name, FLIGHT_CODE) VALUES
+(1,'sairaj','AI2014'),
+(2,'sachin hande','LH9876'),
+(3,'sahil','9W2334'),
+(4,'shinde','QR1902'),
+(5,'Aher','EY1234'),
+(6,'Rutuja','BA3056'),
+(7,'sameer','9W2334'),
+(8,'mahale','AA4367'),
+(9,'sam','QR1902'),
+(10,'samiksha','EK3456'),
+(11,'sharma ji','BA1689');
+
+
+select * from airline;
+select * from airport;
+select * from city;
+select * from flight;
+select * from passenger;
+
+# 1. 	Display the rows where passanger_name begins with the letter ‘S’.
+
+select passanger_name from passenger WHERE passanger_name like 'S%';
+
+# 2.	Display the names of all employees with the initial letter only in capital.
+
+SELECT CONCAT(SUBSTR(UPPER(passanger_name),1,1),substr(LOWER(passanger_name),2)) FROM passenger;
+
+# 3.  DISPLAY FLIGHT_CODE, no of passangers according to  FLIGHT_CODE.
+
+select  FLIGHT_CODE,count(passanger_name) from passenger group by FLIGHT_CODE;
+
+# 4.  display passanger_name and STATUS of flight.
+ 
+select passanger_name,STATUS from passenger,flight
+where flight.FLIGHT_CODE=passenger.FLIGHT_CODE;
+
+# 5. LAST FLIGHT TO DEPARTURE.
+
+SELECT MAX(DEPARTURE) FROM FLIGHT;  
+
+# 6. display passanger_name and FLIGHTTYPE of flight.
+
+select passanger_name,FLIGHTTYPE from passenger,flight
+where flight.FLIGHT_CODE=passenger.FLIGHT_CODE;
+
+# 7. display source and destination of each passanger.
+
+select passanger_name,SOURCE,DESTINATION from passenger,flight
+where flight.FLIGHT_CODE=passenger.FLIGHT_CODE;
+
+
+# 8. display airline name in which passangers are going to travell.
+
+ select passanger_name,AL_NAME from passenger,flight,airline
+where flight.FLIGHT_CODE=passenger.FLIGHT_CODE
+and flight.AIRLINEID=airline.AIRLINEID;
+
+desc flight;
+
+/* 	9. Write a stored procedure by the name of abc to tell whether the no of stops are greater than or equal to one from flight table . */
+
+create table display (NO_OF_STOPS varchar(50));
+
+delimiter //
+create procedure abc(Flightcode varchar (50))
+begin
+	declare stops int;
+    select NO_OF_STOPS into stops from flight where FLIGHT_CODE=Flightcode;
+    if stops>=1 then
+		insert into display values ('stops are greater than or equal to one');
+	else
+		insert into display values ('no of stops are zero');
+	end if;
+end ; //
+
+call abc('AI2014');
+select * from display;
+
+
+#  10 write a stored function which returns the time taken by flight to reach destination in which sairaj is there. 
+
+delimiter //
+create function duration()
+returns varchar(20)
+deterministic
+begin
+	declare du varchar(20);
+    set du =(select DURATION from passenger,flight
+			where flight.FLIGHT_CODE=passenger.FLIGHT_CODE and passanger_name='sairaj');
+	return du;
+end ; //
+
+select duration() from dual;
